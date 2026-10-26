@@ -15,6 +15,15 @@ authors:
     orcid: "https://orcid.org/0000-0002-7730-3064"
     affiliation: "ZHAW Zurich University of Applied Sciences"
 version: 1.0.0
+doi: "10.5281/zenodo.23666920"
+identifiers:
+  - type: doi
+    value: "10.5281/zenodo.23666920"
+    description: All versions (resolves to the latest)
+  - type: doi
+    value: "10.5281/zenodo.23666921"
+    description: Version 1.0.0
+date-released: 2026-10-26
 license: MIT
 repository-code: "https://github.com/WildSolar/slopevf"
 keywords:

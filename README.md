@@ -1,5 +1,8 @@
 # slopevf
 
+[![PyPI](https://img.shields.io/pypi/v/slopevf)](https://pypi.org/project/slopevf/)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23666920.svg)](https://doi.org/10.5281/zenodo.23666920)
+
 Location-resolved irradiance on the front and back side of PV panels in an infinite
 field of regularly spaced rows on arbitrarily sloped, reflective ground.
 
@@ -216,9 +219,14 @@ pvlib's infinite_sheds, convergence, timing, Totalp validation), application exa
 
 ## Citation
 
-If you use slopevf in published work, please cite the archived version on Zenodo (see
-[CITATION.cff](https://github.com/WildSolar/slopevf/blob/main/CITATION.cff); the DOI badge is
-added with the first release) and the paper above.
+If you use slopevf in published work, please cite the paper above and the version you used,
+archived on Zenodo:
+
+> M. Wild: *slopevf: View-factor based irradiation distribution on multi-row bifacial PV arrays
+> on sloped and reflective ground*, version 1.0.0, Zenodo, 2026. https://doi.org/10.5281/zenodo.23666921
+
+The DOI [10.5281/zenodo.23666920](https://doi.org/10.5281/zenodo.23666920) always resolves to the latest version. Citation
+metadata: [CITATION.cff](https://github.com/WildSolar/slopevf/blob/main/CITATION.cff).
 
 ## License
 
