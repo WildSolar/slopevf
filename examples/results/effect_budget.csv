@@ -1,0 +1,81 @@
+array,effect,side,change
+p90_g0_s15,"three rows, centre row",front,0.7691163537511647
+p90_g0_s15,"three rows, centre row",back,0.9935660527269796
+p90_g0_s15,panel thickness 0.016,front,-0.11606847140845922
+p90_g0_s15,panel thickness 0.016,back,-0.4458451243377404
+p90_g0_s15,panel thickness 0.03,front,-0.21753184555745042
+p90_g0_s15,panel thickness 0.03,back,-0.8295636867160949
+p90_g0_s15,specular reflection,front,0.5524424695423358
+p90_g0_s15,specular reflection,back,1.383830669801367
+p90_g0_s15,transmission,front,-5.748005224309505
+p90_g0_s15,transmission,back,-7.651357257239
+p90_g0_s15,diffuse reflection,front,0.2279350832453675
+p90_g0_s15,diffuse reflection,back,1.9010603727371622
+p90_g0_s15,"three rows, outermost row",front,0.2995177754923972
+p90_g0_s15,"three rows, outermost row",back,1.5968464993224574
+p90_g0_s15,panel thickness 0.016,back_hour_max_reduction,1.2320254830496702
+p90_g0_s15,panel thickness 0.03,back_hour_max_reduction,2.3122408972965136
+p90_g20_s15,"three rows, centre row",front,2.6139738906957977
+p90_g20_s15,"three rows, centre row",back,4.54671491744294
+p90_g20_s15,panel thickness 0.016,front,-0.21165399319086342
+p90_g20_s15,panel thickness 0.016,back,-1.3367280898785028
+p90_g20_s15,panel thickness 0.03,front,-0.39643680589730446
+p90_g20_s15,panel thickness 0.03,back,-2.4965604703903854
+p90_g20_s15,specular reflection,front,0.3383625784088684
+p90_g20_s15,specular reflection,back,9.976661020885992
+p90_g20_s15,transmission,front,-5.774873294721338
+p90_g20_s15,transmission,back,-8.539712418631451
+p90_g20_s15,diffuse reflection,front,0.3527310262564587
+p90_g20_s15,diffuse reflection,back,4.4543098953164995
+p90_g20_s15,"three rows, outermost row",front,0.753381784215934
+p90_g20_s15,"three rows, outermost row",back,7.070261127632227
+p90_g20_s15,panel thickness 0.016,back_hour_max_reduction,4.262032559087836
+p90_g20_s15,panel thickness 0.03,back_hour_max_reduction,8.013326885943739
+p90_g30_s25,"three rows, centre row",front,3.8760087244957164
+p90_g30_s25,"three rows, centre row",back,9.87713416796705
+p90_g30_s25,panel thickness 0.016,front,-0.3208610559156777
+p90_g30_s25,panel thickness 0.016,back,-2.524045358895244
+p90_g30_s25,panel thickness 0.03,front,-0.6017335936630119
+p90_g30_s25,panel thickness 0.03,back,-4.714311774734781
+p90_g30_s25,specular reflection,front,0.25517376320109975
+p90_g30_s25,specular reflection,back,19.255939638406016
+p90_g30_s25,transmission,front,-5.7026153941947655
+p90_g30_s25,transmission,back,-9.881325596007628
+p90_g30_s25,diffuse reflection,front,0.34675148260427946
+p90_g30_s25,diffuse reflection,back,7.661594333660071
+p90_g30_s25,"three rows, outermost row",front,1.2894754829974264
+p90_g30_s25,"three rows, outermost row",back,18.29618299235445
+p90_g30_s25,panel thickness 0.016,back_hour_max_reduction,10.536248005056736
+p90_g30_s25,panel thickness 0.03,back_hour_max_reduction,19.76091619198128
+p60_g20_s15,"three rows, centre row",front,1.6917479767637689
+p60_g20_s15,"three rows, centre row",back,8.238878136794181
+p60_g20_s15,panel thickness 0.016,front,-0.05039767525716332
+p60_g20_s15,panel thickness 0.016,back,-1.4649255378857862
+p60_g20_s15,panel thickness 0.03,front,-0.09365443193608547
+p60_g20_s15,panel thickness 0.03,back,-2.745579203646642
+p60_g20_s15,specular reflection,front,0.027863829186247635
+p60_g20_s15,specular reflection,back,9.556037054760536
+p60_g20_s15,transmission,front,-3.0207821741357943
+p60_g20_s15,transmission,back,-7.351431804054909
+p60_g20_s15,diffuse reflection,front,0.1295620993818858
+p60_g20_s15,diffuse reflection,back,3.8206375764002543
+p60_g20_s15,"three rows, outermost row",front,0.8051586776554931
+p60_g20_s15,"three rows, outermost row",back,22.8295304500848
+p60_g20_s15,panel thickness 0.016,back_hour_max_reduction,9.18436705556146
+p60_g20_s15,panel thickness 0.03,back_hour_max_reduction,17.21379845917601
+p30_g0_s25,"three rows, centre row",front,1.071420056679484
+p30_g0_s25,"three rows, centre row",back,11.42692030565331
+p30_g0_s25,panel thickness 0.016,front,-0.02971857444437065
+p30_g0_s25,panel thickness 0.016,back,-1.177391197632549
+p30_g0_s25,panel thickness 0.03,front,-0.05544627379351352
+p30_g0_s25,panel thickness 0.03,back,-2.200970244631617
+p30_g0_s25,specular reflection,front,0.010245978944656287
+p30_g0_s25,specular reflection,back,3.712844277905214
+p30_g0_s25,transmission,front,-2.907643746442856
+p30_g0_s25,transmission,back,-6.559464266795024
+p30_g0_s25,diffuse reflection,front,0.06457044923846578
+p30_g0_s25,diffuse reflection,back,2.2518000216357414
+p30_g0_s25,"three rows, outermost row",front,0.6849267515723678
+p30_g0_s25,"three rows, outermost row",back,39.530668710260166
+p30_g0_s25,panel thickness 0.016,back_hour_max_reduction,9.28681069410322
+p30_g0_s25,panel thickness 0.03,back_hour_max_reduction,17.33193510798914
