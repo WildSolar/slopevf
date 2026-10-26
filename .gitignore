@@ -8,3 +8,6 @@ output/
 benchmarks/raytrace/work/
 benchmarks/convergence/work/
 .venv/
+
+# notes for Claude Code sessions (local only)
+CLAUDE.md
