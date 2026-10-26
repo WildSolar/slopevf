@@ -95,13 +95,19 @@ def apply_style() -> None:
     })
 
 
-def frame_on_top(ax: plt.Axes) -> None:
-    """Draw spines and ticks above filled areas (terrain, bands); grid stays below."""
+def frame_on_top(ax: plt.Axes, grid: str = "both") -> None:
+    """Draw spines and ticks above filled areas (terrain, bands, bars); grid stays below.
+
+    ``grid``: "both", "x" (vertical lines only), "y" (horizontal lines only, e.g. bar charts) or
+    "none". Call after the axis limits and ticks are final.
+    """
     ax.grid(False)
-    for x in ax.get_xticks():
-        ax.axvline(x, color=GRID, linewidth=0.5, zorder=0.5)
-    for y in ax.get_yticks():
-        ax.axhline(y, color=GRID, linewidth=0.5, zorder=0.5)
+    if grid in ("both", "x"):
+        for x in ax.get_xticks():
+            ax.axvline(x, color=GRID, linewidth=0.5, zorder=0.5)
+    if grid in ("both", "y"):
+        for y in ax.get_yticks():
+            ax.axhline(y, color=GRID, linewidth=0.5, zorder=0.5)
     for sp in ax.spines.values():
         sp.set_zorder(10)
     ax.xaxis.set_zorder(10)
