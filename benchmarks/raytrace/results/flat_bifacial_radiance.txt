@@ -1,0 +1,7 @@
+## Flat ground: slopevf vs bifacial_radiance (panel-mean deviation slopevf/RT - 1)
+native_low   front: mean +0.79%  |max| 2.53%  NRMSE mean 0.98%
+native_low   back : mean +0.52%  |max| 7.11%  NRMSE mean 1.33%
+native_high  front: mean +0.82%  |max| 2.48%  NRMSE mean 0.97%
+native_high  back : mean +0.57%  |max| 6.12%  NRMSE mean 1.31%
+matched      front: mean +0.01%  |max| 0.08%  NRMSE mean 0.06%
+matched      back : mean +0.02%  |max| 0.15%  NRMSE mean 0.11%

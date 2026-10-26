@@ -1,0 +1,39 @@
+# Build, test and publish to PyPI when a GitHub release is published.
+# PyPI trusted publishing: project "slopevf", owner "WildSolar", repository "slopevf",
+# workflow "publish.yml", environment "pypi" (no API token needed).
+name: Publish to PyPI
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+      - name: Build sdist and wheel
+        run: uv build
+      - name: Test the built wheel
+        run: |
+          uv venv
+          uv pip install dist/*.whl pytest pvlib matplotlib
+          .venv/bin/python -m pytest -q -p no:cacheprovider
+      - uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist/
+
+  publish:
+    needs: build
+    runs-on: ubuntu-latest
+    environment: pypi
+    permissions:
+      id-token: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: dist
+          path: dist/
+      - uses: pypa/gh-action-pypi-publish@release/v1

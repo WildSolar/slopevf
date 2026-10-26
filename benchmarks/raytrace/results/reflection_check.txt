@@ -1,0 +1,3 @@
+## Panel reflection check (constant R = 0.05, 25 cases)
+front: total (incl. reflection) |max| dev 0.72%, mean -0.20%;  reflected component vf - rt: mean -0.588, |max| 3.855 W/m2;  reflected share (RT) max 4.7%
+back : total (incl. reflection) |max| dev 1.96%, mean -0.29%;  reflected component vf - rt: mean -0.371, |max| 3.028 W/m2;  reflected share (RT) max 61.6%

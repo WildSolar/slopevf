@@ -1,0 +1,15 @@
+## Horizon check (Totalp horizon, 12 cases), deviation slopevf / Radiance - 1
+front no horizon (baseline)                mean  -0.01%  |max|   0.03%
+front A: wall, horizontal model            mean  -0.02%  |max|   0.04%
+front A: wall, facing model                mean  -0.02%  |max|   0.06%
+front A: horizon effect, horizontal        mean  -0.01%  |max|   0.03%
+front A: horizon effect, facing            mean  -0.01%  |max|   0.03%
+front B: lit terrain vs horizontal model   mean  +1.68%  |max|   7.86%
+front B: lit terrain vs facing model       mean  +0.32%  |max|   0.98%
+back  no horizon (baseline)                mean  -0.08%  |max|   0.55%
+back  A: wall, horizontal model            mean  -0.07%  |max|   0.63%
+back  A: wall, facing model                mean  -0.08%  |max|   0.61%
+back  A: horizon effect, horizontal        mean  +0.01%  |max|   0.08%
+back  A: horizon effect, facing            mean  -0.00%  |max|   0.07%
+back  B: lit terrain vs horizontal model   mean  -0.98%  |max|  14.19%
+back  B: lit terrain vs facing model       mean  -0.31%  |max|   2.10%

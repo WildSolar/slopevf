@@ -1,0 +1,3 @@
+## Diffuse panel reflection check (Lambertian panels, R_D = 0.1, 25 cases)
+front: total (incl. reflection) |max| dev 2.07%, mean -0.23%;  diffuse component vf - rt: mean -0.658, |max| 2.635 W/m2;  diffuse share (RT) max 14.4%
+back : total (incl. reflection) |max| dev 6.61%, mean -1.99%;  diffuse component vf - rt: mean -1.597, |max| 4.243 W/m2;  diffuse share (RT) max 61.1%

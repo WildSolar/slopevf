@@ -1,0 +1,9 @@
+## Diffuse panel reflectance 0.1 vs. black panels (Radiance, 600 H rows, 15 mm stack)
+ side  beta_p  beta_g  RA  rho_bar  E(R=0.1) / E(R=0)
+ back      60       0 688    7.167              1.025
+ back      60      20 115    1.126              1.059
+ back      90       0 263    2.740              1.090
+ back      90       0 688    7.167              1.073
+ back      90      20 115    1.126              1.217
+ back      90      30 115    1.037              1.191
+front      90      20 115    1.126              1.005

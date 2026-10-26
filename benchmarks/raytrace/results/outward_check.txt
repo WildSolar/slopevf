@@ -1,0 +1,10 @@
+## Outward-facing sides of a three-row array: slopevf / Radiance (600 H rows, sum over 8 time steps)
+ side  beta_p  beta_g  RA  rho_bar  vf/rt thin  vf/rt thick  min sample  max sample
+ back      60      20 115   1.1257      1.0038       1.0035      1.0005      1.0072
+ back      90       0 263   2.7396      0.9998       0.9999      0.9995      1.0003
+ back      90      20 115   1.1257      1.0051       1.0051      0.9996      1.0092
+ back      90      30 115   1.0374      1.0047       1.0047      0.9994      1.0071
+front      60      20 166   1.6249      1.0000       1.0000      0.9999      1.0002
+front      60      30 137   1.2359      1.0000       1.0000      0.9999      1.0001
+front      90       0 263   2.7396      1.0000       1.0000      0.9999      1.0001
+front      90      20 115   1.1257      1.0000       1.0001      0.9999      1.0001

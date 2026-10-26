@@ -1,0 +1,20 @@
+# slopevf execution times (fastest of 3 runs)
+Intel64 Family 6 Model 189 Stepping 1, GenuineIntel (8 logical cores), Windows 10, Python 3.10.5, numpy 2.2.6
+
+## sky 'medium': 20716 cells, 4247 daylight hours, 721 profile angles, 100 panel elements
+build sky discretisation (once)               0.005 s
+build tables and mappings (per config)        0.332 s
+sky radiance, full year (once)                3.146 s
+apply tables, full year (per config)          0.427 s
+simulate(), 1 configuration                   3.613 s
+simulate(), 10 configurations                10.075 s
+simulate(), 100 configurations               78.956 s
+
+## sky 'low': 10401 cells, 4247 daylight hours, 721 profile angles, 100 panel elements
+build sky discretisation (once)               0.003 s
+build tables and mappings (per config)        0.368 s
+sky radiance, full year (once)                1.432 s
+apply tables, full year (per config)          0.258 s
+simulate(), 1 configuration                   2.103 s
+simulate(), 10 configurations                 7.198 s
+simulate(), 100 configurations               59.129 s

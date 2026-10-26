@@ -1,0 +1,27 @@
+{
+  "machine": "Intel64 Family 6 Model 189 Stepping 1, GenuineIntel (8 logical cores), Windows 10, Python 3.10.5, numpy 2.2.6",
+  "slopevf": "0.1.0",
+  "repeat": 3,
+  "medium": {
+    "n_cells": 20716,
+    "n_hours": 4247,
+    "build_grid": 0.004743800000142073,
+    "build_tables": 0.3321893000002092,
+    "sky_radiance": 3.145785600000636,
+    "apply_tables": 0.42676229999960924,
+    "simulate_1": 3.6126021999998557,
+    "simulate_10": 10.074848599999314,
+    "simulate_100": 78.95637540000007
+  },
+  "low": {
+    "n_cells": 10401,
+    "n_hours": 4247,
+    "build_grid": 0.0032821000004332745,
+    "build_tables": 0.36789690000023256,
+    "sky_radiance": 1.431970999999976,
+    "apply_tables": 0.2581535999997868,
+    "simulate_1": 2.1025651999998445,
+    "simulate_10": 7.198066900000413,
+    "simulate_100": 59.12897890000022
+  }
+}

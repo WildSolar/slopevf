@@ -1,0 +1,31 @@
+## Finite array, central module (4 of 7), sampled Totalp time steps
+length: E(15.4 H, thin) / E(600 H, thin); thickness: E(15.4 H, 15 mm) / E(15.4 H, thin); total: E(15.4 H, 15 mm) / E(600 H, thin)
+ side  beta_p  beta_g  RA  rho_bar  n  length  thickness  total
+ back      60       0 263    2.740  8   1.030      0.980  1.009
+ back      60      20 115    1.126  8   1.013      0.969  0.981
+ back      60      30 137    1.236  8   1.013      0.961  0.973
+ back      90       0 263    2.740  8   1.027      0.945  0.970
+ back      90       0 688    7.167  8   1.039      0.970  1.009
+ back      90      10 166    1.703  8   1.029      0.914  0.940
+ back      90      20 115    1.126  8   1.017      0.894  0.909
+ back      90      20 205    2.007  8   1.030      0.932  0.960
+ back      90      30 115    1.037  8   1.017      0.875  0.890
+front      60      20 166    1.625  8   1.000      0.991  0.991
+front      90       0 263    2.740  8   1.003      0.975  0.977
+front      90      20 115    1.126  8   1.001      0.977  0.977
+
+## slopevf (finite rows, ground beyond the array as far ground) vs. Radiance, 600 H rows
+slopevf_thin: slopevf(thin) / E(600 H, thin); slopevf_thick: slopevf(15 mm) / E(600 H, 15 mm); thickness effect E(15 mm) / E(thin) in Radiance and slopevf
+ side  beta_p  beta_g  RA  slopevf_thin  slopevf_thick  thickness_long  thickness_slopevf
+ back      60       0 263         1.000          1.000           0.980              0.980
+ back      60      20 115         1.000          1.000           0.970              0.969
+ back      60      30 137         0.999          0.999           0.960              0.961
+ back      90       0 263         1.000          1.001           0.943              0.943
+ back      90       0 688         1.000          1.000           0.968              0.968
+ back      90      10 166         1.001          1.001           0.912              0.912
+ back      90      20 115         1.001          1.001           0.893              0.893
+ back      90      20 205         1.000          1.001           0.930              0.930
+ back      90      30 115         1.001          1.001           0.873              0.873
+front      60      20 166         1.000          1.000           0.991              0.991
+front      90       0 263         0.994          1.003           0.974              0.983
+front      90      20 115         1.015          0.996           0.977              0.958

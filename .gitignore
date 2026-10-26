@@ -1,0 +1,10 @@
+__pycache__/
+*.egg-info/
+.pytest_cache/
+build/
+dist/
+output/
+.venv-bench/
+benchmarks/raytrace/work/
+benchmarks/convergence/work/
+.venv/

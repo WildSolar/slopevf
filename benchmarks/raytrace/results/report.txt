@@ -1,0 +1,63 @@
+## level 'ideal' (102 cases)
+front: panel-mean diff  mean -0.00%  |max| 0.07%  (P95 0.05%);  profile NRMSE  mean 0.04%  max 0.15%;  RT noise ~0.02%
+back : panel-mean diff  mean +0.01%  |max| 0.17%  (P95 0.13%);  profile NRMSE  mean 0.17%  max 0.72%;  RT noise ~0.11%
+sensors excluded at direct shadow edges: front 2, back 2 (of 2040 per side)
+largest deviations:
+     geometry              sky  front_mean_diff_%  back_mean_diff_%  front_nrmse_%  back_nrmse_%
+      g30_p90     clear_behind              -0.00              0.17           0.04          0.33
+      g20_p30 clear_front_high              -0.01             -0.16           0.01          0.32
+g30_p90_az-45     clear_behind              -0.01              0.14           0.05          0.31
+ g20_p60_h1.5     clear_behind              -0.07             -0.14           0.08          0.36
+      g30_p60     clear_behind              -0.05              0.14           0.07          0.37
+max |panel-mean diff| by sky [%]:
+                  front_mean_diff_%  back_mean_diff_%
+sky                                                  
+clear_along_rows               0.04              0.09
+clear_behind                   0.07              0.17
+clear_front_high               0.02              0.16
+clear_front_low                0.01              0.11
+hazy                           0.06              0.11
+overcast                       0.03              0.11
+
+## level 'field' (102 cases)
+front: panel-mean diff  mean -0.00%  |max| 0.05%  (P95 0.05%);  profile NRMSE  mean 0.04%  max 0.16%;  RT noise ~0.02%
+back : panel-mean diff  mean -0.00%  |max| 0.27%  (P95 0.15%);  profile NRMSE  mean 0.17%  max 0.72%;  RT noise ~0.11%
+sensors excluded at direct shadow edges: front 2, back 2 (of 2040 per side)
+largest deviations:
+    geometry              sky  front_mean_diff_%  back_mean_diff_%  front_nrmse_%  back_nrmse_%
+     g20_p30  clear_front_low              -0.01             -0.27           0.02          0.72
+g20_p60_h1.5  clear_front_low              -0.01             -0.25           0.03          0.71
+g20_p60_h0.5 clear_front_high               0.00              0.17           0.01          0.31
+     g30_p60  clear_front_low              -0.00             -0.16           0.01          0.44
+g20_p60_h1.5     clear_behind              -0.05             -0.15           0.06          0.36
+max |panel-mean diff| by sky [%]:
+                  front_mean_diff_%  back_mean_diff_%
+sky                                                  
+clear_along_rows               0.05              0.08
+clear_behind                   0.05              0.15
+clear_front_high               0.02              0.17
+clear_front_low                0.01              0.27
+hazy                           0.05              0.14
+overcast                       0.04              0.08
+
+## far-ground idealisation: front-side RT mean, actual field vs uniform far ground
+mean -0.00%, range -0.03% .. +0.03%
+sky            clear_along_rows  clear_behind  clear_front_high  clear_front_low  hazy  overcast
+geometry                                                                                        
+g0_p30                    -0.00         -0.03             -0.00             0.01 -0.00     -0.00
+g0_p60                     0.00         -0.03             -0.00            -0.00  0.00      0.00
+g0_p90                    -0.01         -0.01              0.00            -0.00  0.01     -0.01
+g10_p30                   -0.00          0.01             -0.00             0.00  0.01     -0.00
+g10_p60                   -0.01         -0.01             -0.01             0.00 -0.00     -0.00
+g10_p90                    0.01          0.03             -0.01             0.00  0.00     -0.02
+g20_p30                   -0.00         -0.01              0.00            -0.00 -0.01     -0.00
+g20_p60                    0.01         -0.00              0.00             0.00  0.00      0.00
+g20_p60_az45               0.01         -0.01              0.00            -0.00 -0.00     -0.00
+g20_p60_h0.5              -0.00         -0.00              0.00            -0.00 -0.01     -0.00
+g20_p60_h1.5              -0.01         -0.02              0.00             0.00  0.00     -0.00
+g20_p60_sh25               0.01          0.01              0.00             0.00 -0.01     -0.00
+g20_p60_sh5                0.01          0.01              0.01            -0.00  0.00      0.01
+g20_p90                   -0.01          0.01              0.00            -0.01 -0.01      0.01
+g30_p60                    0.00         -0.00              0.01             0.00  0.00     -0.01
+g30_p90                   -0.03          0.01              0.00             0.00 -0.00     -0.00
+g30_p90_az-45             -0.01          0.00              0.00            -0.00 -0.00     -0.01

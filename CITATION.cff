@@ -1,0 +1,40 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it using the metadata from this file, together with the paper listed under references."
+type: software
+title: "slopevf: View-factor based irradiation distribution on multi-row bifacial PV arrays on sloped and reflective ground"
+abstract: >-
+  Python implementation of a view-factor based model for the location-resolved irradiation on
+  the front and back side of PV panels in multi-row arrays on arbitrarily sloped, reflective
+  ground. All view factors are evaluated in closed form. Includes finite arrays, panel
+  thickness, specular and diffuse reflection between the rows, glass transmission and the local
+  horizon, a legacy mode reproducing the original MATLAB implementation, and the verification
+  and validation studies (Radiance ray tracing, Totalp miniature array).
+authors:
+  - family-names: Wild
+    given-names: Michael
+    orcid: "https://orcid.org/0000-0002-7730-3064"
+    affiliation: "ZHAW Zurich University of Applied Sciences"
+version: 1.0.0
+license: MIT
+repository-code: "https://github.com/WildSolar/slopevf"
+keywords:
+  - photovoltaics
+  - bifacial
+  - view factor
+  - irradiance
+  - sloped terrain
+  - alpine PV
+references:
+  - type: article
+    title: "A general view-factor based irradiation distribution model for multi-row bifacial PV arrays on sloped and reflective ground"
+    authors:
+      - family-names: Wild
+        given-names: Michael
+      - family-names: Strebel
+        given-names: Sven
+      - family-names: Anderegg
+        given-names: Dionis
+      - family-names: Rohrer
+        given-names: Jürg
+    journal: "Solar Energy"
+    year: 2026

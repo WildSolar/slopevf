@@ -1,0 +1,47 @@
+[build-system]
+requires = ["setuptools>=64"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "slopevf"
+version = "1.0.0"
+description = "View-factor based irradiance distribution on multi-row bifacial PV arrays on sloped and reflective ground"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "Michael Wild", email = "michael.wild@zhaw.ch" }]
+keywords = ["photovoltaics", "bifacial", "view factor", "irradiance", "sloped terrain", "alpine PV",
+            "solar energy"]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Scientific/Engineering :: Physics",
+]
+dependencies = ["numpy>=1.22", "scipy>=1.8", "pandas>=1.4", "perezsky>=1.0"]
+
+[project.optional-dependencies]
+solar = ["pvlib>=0.10"]
+plot = ["matplotlib>=3.5"]
+test = ["pytest>=7", "pvlib>=0.10", "matplotlib>=3.5"]
+examples = ["pvlib>=0.10", "matplotlib>=3.5", "pvmismatch>=4.1"]
+benchmarks = ["pvlib>=0.10", "matplotlib>=3.5", "pyradiance>=1.0", "bifacial_radiance>=0.5"]
+all = ["pvlib>=0.10", "matplotlib>=3.5", "pytest>=7", "pvmismatch>=4.1", "pyradiance>=1.0",
+       "bifacial_radiance>=0.5"]
+
+[project.urls]
+Homepage = "https://github.com/WildSolar/slopevf"
+Repository = "https://github.com/WildSolar/slopevf"
+Issues = "https://github.com/WildSolar/slopevf/issues"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

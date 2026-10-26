@@ -1,0 +1,27 @@
+## slopevf vs pvlib infinite_sheds, isotropic sky, horizontal ground (180 cases)
+deviation slopevf / pvlib - 1, panel average
+front sky   : mean +0.00%  |max| 0.00%  (P95 0.00%)
+front ground: mean +1.44%  |max| 46.35%  (P95 23.64%)
+front total : mean +0.04%  |max| 17.74%  (P95 2.15%)
+front sky    |max| absolute 0.003 W/m2
+back  sky   : mean +0.01%  |max| 0.03%  (P95 0.03%)
+back  ground: mean -5.29%  |max| 49.14%  (P95 34.00%)
+back  total : mean -4.42%  |max| 43.51%  (P95 27.74%)
+back  sky    |max| absolute 0.005 W/m2
+ground-reflected deviation by height [%] (mean, |max|):
+      front_ground_diff_%            back_ground_diff_%           
+                     mean <lambda_0>               mean <lambda_0>
+h_bar                                                             
+0.6                  4.07      46.35             -11.77      49.14
+1.0                  0.00      25.36              -3.02      39.53
+2.0                  0.24      17.00              -1.08      20.53
+backside ground-reflected deviation by sky [%] (mean, |max|):
+                 back_ground_diff_%           
+                               mean <lambda_0>
+sky                                           
+clear_along_rows             -11.80      36.36
+clear_behind                   1.37      37.48
+clear_front_high              -8.27      49.14
+clear_front_low               -0.21      42.81
+hazy                          -6.09      20.94
+overcast                      -6.76      23.42
