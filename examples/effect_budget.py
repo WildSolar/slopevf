@@ -29,7 +29,7 @@ from slopevf import Array, FarGround, PanelGlass, Settings, simulate
 warnings.simplefilter("ignore")
 HERE = Path(__file__).parent
 RESULTS = HERE / "results"
-TMY = HERE / "output" / "pvgis_tmy_davos_v5_3_free.csv"
+TMY = HERE.parent / "data" / "pvgis" / "pvgis_tmy_davos_v5_3_free.csv"
 LAT, LON, ALT = 46.838, 9.813, 1560.0
 ALBEDO = 0.5
 ARRAYS = {  # (tilt, slope, shading angle)

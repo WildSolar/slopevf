@@ -1,0 +1,7 @@
+## g10_p90 / clear_behind: backside panel mean, ray tracing with n sensors per panel side vs. model
+model (2000 elements): 329.404 W/m2
+n sensors   RT mean [W/m2]   model / RT - 1 [%]
+       20          315.056              +4.554
+      100          326.550              +0.874
+      400          329.415              -0.004
+     1000          329.421              -0.005

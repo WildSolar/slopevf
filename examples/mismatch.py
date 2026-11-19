@@ -34,7 +34,7 @@ from slopevf import Array, FarGround, PanelGlass, Settings, simulate
 warnings.simplefilter("ignore")
 OUT = Path(__file__).parent / "output"          # downloads and large intermediate files (not tracked)
 RESULTS = Path(__file__).parent / "results"
-TMY = OUT / "pvgis_tmy_davos_v5_3_free.csv"
+TMY = Path(__file__).parents[1] / "data" / "pvgis" / "pvgis_tmy_davos_v5_3_free.csv"
 LAT, LON, ALT = 46.838, 9.813, 1560.0
 BIFACIALITY = 0.9
 N_CHI = 120                                   # multiple of 6, 12 and 24 cell bands

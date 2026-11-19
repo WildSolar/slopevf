@@ -51,6 +51,7 @@ Usage:  python totalp_validation.py      (results in results/)
 
 from __future__ import annotations
 
+import os
 import warnings
 from pathlib import Path
 
@@ -63,7 +64,20 @@ HERE = Path(__file__).parent
 DATA = HERE.parents[1] / "data" / "totalp" / "Totalp_Measurement_Data.csv"
 RESULTS = HERE / "results"
 H_MM = 96.0
-ALBEDO, ALBEDO_FG, FAR_GROUND = 0.79, 0.5, FarGround(20, 160)
+# Sensitivity runs (environment variables; results get the suffix _<TOTALP_TAG>):
+#   TOTALP_ALBEDO  albedo of the base plate and the uniform ground (default 0.79, broadband; 0.85 is the
+#                  silicon-weighted value); needs raytrace/plate_check.py run with PLATE_ALBEDO = same
+#   TOTALP_SUN=1   recompute the sun position at the true time (the measurement timestamps are the database
+#                  clock with a drift of 4 - 5 min, see data/totalp/README.md)
+#   TOTALP_DHI=1   scale the DHI input such that the model's horizontal irradiation including the local
+#                  horizon equals the measured GHI (the measured GHI already contains the horizon, the
+#                  model masks the free-horizon sky once more)
+TAG = os.environ.get("TOTALP_TAG", "")
+SUFFIX = f"_{TAG}" if TAG else ""
+SUN_CORRECTION = os.environ.get("TOTALP_SUN") == "1"
+DHI_CORRECTION = os.environ.get("TOTALP_DHI") == "1"
+SITE = (46.84, 9.80, 2500.0)   # approximate latitude, longitude, altitude of the Totalp site
+ALBEDO, ALBEDO_FG, FAR_GROUND = float(os.environ.get("TOTALP_ALBEDO", 0.79)), 0.5, FarGround(20, 160)
 MIN_MEASUREMENTS = 20          # configurations with fewer measurements are excluded from the statistics
 ROWS = {"front": (2, 0), "back": (0, 2)}
 GLASS = PanelGlass(n=1.52)
@@ -74,7 +88,8 @@ THICKNESS = 15.0 / H_MM        # module stack: two modules back to back + 25 x 7
 THICKNESS_THIN = 10.0 / H_MM   # sensitivity: thinner modules (datasheet: 2 mm each)
 HORIZON = Horizon.from_file(HERE.parents[1] / "data" / "totalp" / "Totalp_Horizon.hor")   # "facing" terrain
 SNOW = HERE.parents[1] / "data" / "totalp" / "snow_cover.csv"
-PLATE = HERE.parent / "raytrace" / "results" / "plate_check.csv"
+PLATE = HERE.parent / "raytrace" / "results" / (
+    "plate_check.csv" if ALBEDO == 0.79 else f"plate_check_a{round(100 * ALBEDO):03d}.csv")
 ALBEDO_FREE, ALBEDO_SNOW = 0.2, 0.85     # surroundings, as in plate_check.py
 
 
@@ -123,14 +138,73 @@ def load():
     df["rho_bar"] = df["RA"] * np.cos(np.radians(df["HN"])) / H_MM
     df["h_bar"] = 1.77 / np.cos(np.radians(df["HN"]))
     valid = (df["MN_relHor"] > df["HN"]) & (df["MN_relHor"] <= 90)
-    return df[valid].reset_index(drop=True)
+    df = df[valid].reset_index(drop=True)
+    df["ghi_in"] = df["GHI"]
+    if SUN_CORRECTION:
+        _correct_sun(df)
+    if DHI_CORRECTION:
+        _correct_dhi(df)
+    return df
+
+
+def _correct_sun(df):
+    """Sun position at the true time. The timestamps are the database clock: UTC + 124 min until the end
+    of DST on 27 Oct 2024, UTC + 64.5 min (65 min in March) in winter time, UTC + 125 min after 30 Mar
+    2025 (civil time plus a clock drift of 4 - 5 min, determined from the GHI of the full-size station)."""
+    import pvlib
+    ts = df["Timestamp"]
+    shift = np.where(ts < "2024-10-27 03:00", 124.0, np.where(ts < "2025-03-30 03:00", 64.5, 125.0))
+    shift = np.where((ts >= "2025-03-01") & (ts < "2025-03-30 03:00"), 65.0, shift)
+    utc = (ts - pd.to_timedelta(shift, unit="min")).dt.tz_localize("UTC")
+    sp = pvlib.solarposition.get_solarposition(utc, SITE[0], SITE[1], altitude=SITE[2])
+    d_az = (sp.azimuth.to_numpy() - 180.0) - df["azimuth"].to_numpy()
+    d_el = sp.apparent_elevation.to_numpy() - df["elevation"].to_numpy()
+    df.attrs["sun_shift"] = (float(np.median(d_az)), float(np.percentile(d_el, 5)), float(np.percentile(d_el, 95)))
+    df["azimuth"] = sp.azimuth.to_numpy() - 180.0
+    df["elevation"] = sp.apparent_elevation.to_numpy()
+
+
+def _snow_albedo(df):
+    snow = pd.read_csv(SNOW, index_col="date")["snow_cover"]
+    cover = df.Timestamp.dt.strftime("%Y-%m-%d").map(snow).to_numpy()
+    return ALBEDO_FREE + (ALBEDO_SNOW - ALBEDO_FREE) * cover
+
+
+def _correct_dhi(df, n_iter=4):
+    """Scale the DHI input such that the model's horizontal irradiation including the horizon equals the
+    measured GHI. The sky of the model is normalised to the DHI it is given and then masked by the horizon;
+    the measured GHI, however, already lacks the sky below the horizon (and contains the terrain reflection),
+    so the horizon would be counted twice in the diffuse part. Fixed-point iteration per time step."""
+    el = np.radians(df["elevation"].to_numpy())
+    dni, ghi = df["DNI"].to_numpy(), df["GHI"].to_numpy()
+    dhi = np.clip(ghi - dni * np.sin(el), 0.0, None)
+    a_t = _snow_albedo(df)
+    k = np.ones(len(df))
+    probe = Array(60.0, 0.0, 3.0, 2.0)
+    for it in range(n_iter):
+        w = pd.DataFrame({"dni": dni, "ghi": dhi * k + dni * np.sin(el), "solar_azimuth": df["azimuth"].to_numpy(),
+                          "solar_elevation": df["elevation"].to_numpy()}, index=pd.DatetimeIndex(df.Timestamp))
+        with warnings.catch_warnings():
+            warnings.simplefilter("ignore")
+            r = simulate(probe, w, albedo=ALBEDO, far_ground=FAR_GROUND, albedo_fg=ALBEDO_FG, horizon=HORIZON,
+                         albedo_terrain=a_t, settings=Settings(sky="low", n_chi=4))
+        if it == 0:                                  # diagnostic: measured values used as free-horizon input
+            df.attrs["ghi_model_ratio"] = np.where(ghi > 20.0, r.ghi_check / np.where(ghi > 20.0, ghi, 1.0), np.nan)
+        beam = dni * np.sin(el)                     # not scaled (zero while the sun is behind the horizon)
+        diff_model, diff_meas = r.ghi_check - beam, ghi - beam
+        # the measured diffuse irradiation is a small difference of two large readings under clear sky:
+        # hours below 5 W/m2 are left alone, and the factor is limited
+        ok = (diff_model > 5.0) & (diff_meas > 5.0)
+        k = np.where(ok, np.clip(k * np.clip(diff_meas / np.where(ok, diff_model, 1.0), 0.8, 1.25), 0.5, 1.5), k)
+    df["ghi_in"] = dhi * k + dni * np.sin(el)
+    df.attrs["dhi_factor"] = k
 
 
 def predict(df):
     out = {v: np.full(len(df), np.nan) for v in SIMULATED}
     for (bp, bg, ra, side), g in df.groupby(["MN_relHor", "HN", "RA", "side"]):
         arr = Array(float(bp), float(bg), float(g.rho_bar.iloc[0]), float(g.h_bar.iloc[0]))
-        w = pd.DataFrame({"dni": g.DNI.to_numpy(), "ghi": g.GHI.to_numpy(),
+        w = pd.DataFrame({"dni": g.DNI.to_numpy(), "ghi": g.ghi_in.to_numpy(),
                           "solar_azimuth": g.azimuth.to_numpy(), "solar_elevation": g.elevation.to_numpy()},
                          index=pd.DatetimeIndex(g.Timestamp))
         for name, kw in _variants(side).items():
@@ -201,6 +275,21 @@ def summarise(df):
     if len(excluded):
         lines.append("excluded: " + ", ".join(f"{r.side} {r.beta_p:.0f}/{r.beta_g:.0f}/{r.RA:.0f} (n={r.n})"
                                               for r in excluded.itertuples()))
+    lines += ["", f"options: tag '{TAG}', plate/ground albedo {ALBEDO}, sun at true time {SUN_CORRECTION}, DHI normalised {DHI_CORRECTION}"]
+    if SUN_CORRECTION:
+        d = df.attrs["sun_shift"]
+        lines.append(f"sun position change: azimuth median {d[0]:+.2f} deg, elevation 5th/95th percentile {d[1]:+.2f} / {d[2]:+.2f} deg")
+    if DHI_CORRECTION:
+        k = df.attrs["dhi_factor"]
+        kd0 = (df.GHI - df.DNI * np.sin(np.radians(df.elevation))) / df.GHI
+        lines.append(f"DHI scaling factor (diffuse part): mean {k.mean():.3f}, median {np.median(k):.3f}, 5-95% "
+                     f"{np.percentile(k, 5):.3f} - {np.percentile(k, 95):.3f}; clear (diffuse fraction < 0.3) "
+                     f"{k[(kd0 < 0.3).to_numpy()].mean():.3f}, overcast (> 0.7) {k[(kd0 > 0.7).to_numpy()].mean():.3f}")
+        q = df.attrs["ghi_model_ratio"]
+        c, o = (kd0 < 0.3).to_numpy(), (kd0 > 0.7).to_numpy()
+        lines.append(f"model GHI incl. horizon / measured GHI with the measured values as free-horizon input: mean "
+                     f"{np.nanmean(q):.4f}; clear {np.nanmean(q[c]):.4f}; overcast {np.nanmean(q[o]):.4f}; "
+                     f"elevation < 15 deg {np.nanmean(q[(df.elevation < 15).to_numpy()]):.4f}")
     lines += ["", f"fitted diffuse reflectance of the module surfaces (plate_dfit): {df.attrs['r_fit']:.3f}",
               "", "## By snow cover of the surroundings (snow-free: cover 0, snow: cover 1)",
               "ratio prediction / measurement summed over all records (all sky / clear sky, diffuse fraction < 0.3)"]
@@ -222,10 +311,10 @@ def summarise(df):
 def main():
     df = predict(load())
     RESULTS.mkdir(exist_ok=True)
-    df.to_csv(RESULTS / "totalp_predictions.csv", index=False)
+    df.to_csv(RESULTS / f"totalp_predictions{SUFFIX}.csv", index=False)
     s, text = summarise(df)
-    s.to_csv(RESULTS / "totalp_summary.csv", index=False)
-    (RESULTS / "totalp_summary.txt").write_text(text)
+    s.to_csv(RESULTS / f"totalp_summary{SUFFIX}.csv", index=False)
+    (RESULTS / f"totalp_summary{SUFFIX}.txt").write_text(text)
     print(text)
 
 

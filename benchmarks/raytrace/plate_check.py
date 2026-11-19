@@ -25,11 +25,13 @@ Usage:  python plate_check.py      (results in results/plate_check.csv / .txt)
 from __future__ import annotations
 
 import json
+import os
 import zlib
 
 import numpy as np
 import pandas as pd
 
+import finite_array_check as _fac
 from finite_array_check import (DATA, RESULTS, ROW_LENGTH, ROWS, THICKNESS, WORK, scene, sensor_rays,
                                 slope_irradiance, slopevf_irradiance)
 from radscene import _polygon, _to_world, build_octree, irradiance, radiance_env, sky_rad
@@ -39,7 +41,11 @@ from slopevf.geometry import Geometry
 H_MM = 96.0
 PLATE_HALF = 915.0 / H_MM          # along the slope, from the middle row
 SURROUNDINGS = {"plate_free": 0.2, "plate_snow": 0.85}
-PLATE_ALBEDO = 0.79
+# albedo of the plate (and of the uniform reference ground of slopevf); sensitivity: PLATE_ALBEDO=0.85
+# (spectrally weighted for silicon instead of the broadband 0.79); results then get the suffix _a085
+PLATE_ALBEDO = float(os.environ.get("PLATE_ALBEDO", 0.79))
+SUFFIX = "" if PLATE_ALBEDO == 0.79 else f"_a{round(100 * PLATE_ALBEDO):03d}"
+_fac.ALBEDO = PLATE_ALBEDO         # reference ground of slopevf_irradiance()
 N_STEPS = 8                        # sampled measurement time steps per configuration
 MIN_MEASUREMENTS = 20              # as in totalp_validation.py
 
@@ -98,7 +104,8 @@ def main():
             res = {"slopevf": slopevf_irradiance(geo, side, m, THICKNESS)}
             e_slope = slope_irradiance(m, bg)
             for name, a_s in SURROUNDINGS.items():
-                key = f"{side}|{bp}|{bg}|{ra}|{m.Timestamp}|plate{PLATE_HALF:.3f}|surr{a_s}|module4|t{THICKNESS:.4f}"
+                key = (f"{side}|{bp}|{bg}|{ra}|{m.Timestamp}|plate{PLATE_HALF:.3f}|surr{a_s}"
+                       + ("" if not SUFFIX else f"|plateA{PLATE_ALBEDO}") + f"|module4|t{THICKNESS:.4f}")
                 if key not in cache:
                     rad = plate_scene(arr, ROWS[side], a_s)
                     sky = sky_rad(el, az, dni, dhi, e_slope, a_s)
@@ -114,7 +121,7 @@ def main():
                   flush=True)
     r = pd.DataFrame(rows)
     RESULTS.mkdir(exist_ok=True)
-    r.to_csv(RESULTS / "plate_check_samples.csv", index=False)
+    r.to_csv(RESULTS / f"plate_check_samples{SUFFIX}.csv", index=False)
     out = []
     for key, g in r.groupby(["side", "beta_p", "beta_g", "RA", "rho_bar"]):
         row = dict(zip(["side", "beta_p", "beta_g", "RA", "rho_bar"], key), n=len(g))
@@ -123,11 +130,11 @@ def main():
         row["snow/free"] = g.e_plate_snow.sum() / g.e_plate_free.sum()
         out.append(row)
     s = pd.DataFrame(out)
-    s.to_csv(RESULTS / "plate_check.csv", index=False)
+    s.to_csv(RESULTS / f"plate_check{SUFFIX}.csv", index=False)
     text = ("## Finite base plate (1830 mm, centred on the middle row) with surroundings, Radiance\n"
-            "plate_free / plate_snow: E(Radiance: 15.4 H rows, 15 mm, plate 0.79 + surroundings 0.2 / 0.85) / "
-            "E(slopevf: infinite rows, 15 mm, uniform 0.79)\n" + s.round(3).to_string(index=False))
-    (RESULTS / "plate_check.txt").write_text(text)
+            f"plate_free / plate_snow: E(Radiance: 15.4 H rows, 15 mm, plate {PLATE_ALBEDO} + surroundings 0.2 / 0.85) / "
+            f"E(slopevf: infinite rows, 15 mm, uniform {PLATE_ALBEDO})\n" + s.round(3).to_string(index=False))
+    (RESULTS / f"plate_check{SUFFIX}.txt").write_text(text)
     print(text)
 
 

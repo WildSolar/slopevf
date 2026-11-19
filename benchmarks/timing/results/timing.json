@@ -1,27 +1,27 @@
 {
   "machine": "Intel64 Family 6 Model 189 Stepping 1, GenuineIntel (8 logical cores), Windows 10, Python 3.10.5, numpy 2.2.6",
-  "slopevf": "0.1.0",
+  "slopevf": "1.0.0",
   "repeat": 3,
   "medium": {
     "n_cells": 20716,
     "n_hours": 4247,
-    "build_grid": 0.004743800000142073,
-    "build_tables": 0.3321893000002092,
-    "sky_radiance": 3.145785600000636,
-    "apply_tables": 0.42676229999960924,
-    "simulate_1": 3.6126021999998557,
-    "simulate_10": 10.074848599999314,
-    "simulate_100": 78.95637540000007
+    "build_grid": 0.0027029000002585235,
+    "build_tables": 0.38138960000014777,
+    "sky_radiance": 2.93310399999973,
+    "apply_tables": 0.2843474999999671,
+    "simulate_1": 3.5159943999997267,
+    "simulate_10": 9.696411399999306,
+    "simulate_100": 70.7563210999997
   },
   "low": {
     "n_cells": 10401,
     "n_hours": 4247,
-    "build_grid": 0.0032821000004332745,
-    "build_tables": 0.36789690000023256,
-    "sky_radiance": 1.431970999999976,
-    "apply_tables": 0.2581535999997868,
-    "simulate_1": 2.1025651999998445,
-    "simulate_10": 7.198066900000413,
-    "simulate_100": 59.12897890000022
+    "build_grid": 0.0019929999998566927,
+    "build_tables": 0.45317250000061904,
+    "sky_radiance": 1.772808100000475,
+    "apply_tables": 0.18830329999946116,
+    "simulate_1": 2.407145799999853,
+    "simulate_10": 8.96400210000047,
+    "simulate_100": 59.03210029999991
   }
 }

@@ -17,7 +17,7 @@ from slopevf import Array, FarGround, PanelGlass, Settings, simulate
 
 warnings.simplefilter("ignore")
 OUT = Path(__file__).parent / "output"
-TMY = OUT / "pvgis_tmy_davos_v5_3_free.csv"
+TMY = Path(__file__).parents[1] / "data" / "pvgis" / "pvgis_tmy_davos_v5_3_free.csv"
 ARRAYS = {  # (tilt, slope, shading angle)
     "p90_g0_s15": (90, 0, 15), "p90_g20_s15": (90, 20, 15), "p90_g30_s25": (90, 30, 25),
     "p60_g20_s15": (60, 20, 15), "p30_g0_s25": (30, 0, 25),

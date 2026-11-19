@@ -41,7 +41,7 @@ agree within ±0.2% on horizontal and tilted planes of all orientations.
 - a Lambertian ground;
 - 2 × 60 panel heights of rows, each row 200 panel heights long, so the field is effectively
   infinite;
-- sensors on the centre row, averaged over 4 positions along the row.
+- sensors on the centre row, averaged over 8 positions along the row.
 
 slopevf treats everything seen over the top edge of the downhill row as horizontal far ground. In
 the ray-tracing scene this region is replaced by a glowing plane of the same radiance. The plane
