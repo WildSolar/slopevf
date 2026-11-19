@@ -223,7 +223,7 @@ If you use slopevf in published work, please cite the paper above and the versio
 archived on Zenodo:
 
 > M. Wild: *slopevf: View-factor based irradiation distribution on multi-row bifacial PV arrays
-> on sloped and reflective ground*, version 1.0.0, Zenodo, 2026. https://doi.org/10.5281/zenodo.23666921
+> on sloped and reflective ground*, Zenodo, 2026 (cite the version you used; its DOI is listed on the Zenodo record).
 
 The DOI [10.5281/zenodo.23666920](https://doi.org/10.5281/zenodo.23666920) always resolves to the latest version. Citation
 metadata: [CITATION.cff](https://github.com/WildSolar/slopevf/blob/main/CITATION.cff).

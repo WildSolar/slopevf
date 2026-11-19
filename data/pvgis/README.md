@@ -14,6 +14,12 @@ pvlib.iotools.get_pvgis_tmy(46.838, 9.813, usehorizon=False, map_variables=True,
                             url="https://re.jrc.ec.europa.eu/api/v5_3/")[0].to_csv("pvgis_tmy_davos_v5_3_free.csv")
 ```
 
-Source: PVGIS, European Commission Joint Research Centre (https://joint-research-centre.ec.europa.eu/pvgis_en);
-the data are reproduced here for reproducibility and remain subject to the PVGIS terms of use (acknowledge
-the source). A later download may give a different TMY, since PVGIS data sets are updated.
+Provenance (PVGIS API metadata, 2026-11-19): radiation database PVGIS-SARAH3, meteorological database ERA5,
+years 2005 - 2023, grid elevation 2472 m; the API returned exactly this data (yearly GHI 1326.1 kWh/m2) on that
+date. A later download may differ, since PVGIS data sets are updated.
+
+Source: PVGIS, European Commission Joint Research Centre (https://joint-research-centre.ec.europa.eu/pvgis_en),
+with radiation data from CM SAF (SARAH-3) and meteorological data from ERA5 (Copernicus Climate Change Service).
+The file is reproduced here for reproducibility with attribution to these sources; the terms of PVGIS and of the
+underlying data sets apply (the Commission's legal notice licenses content owned by the EU under CC BY 4.0 unless
+otherwise indicated).

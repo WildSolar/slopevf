@@ -14,4 +14,4 @@ from .reflection import PanelGlass
 
 __all__ = ["Array", "FarGround", "Horizon", "PanelGlass", "Settings", "Result", "ArrayModel", "simulate",
            "prepare_weather", "COMPONENTS"]
-__version__ = "1.0.0"
+__version__ = "1.0.1"
